@@ -1,0 +1,1 @@
+enum RhythmicType { note, rest }
