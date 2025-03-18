@@ -63,6 +63,14 @@ class MidiNote {
     return midiNumber % 12;
   }
 
+  MidiNote copyWith({int? index, int? octave, MusicalAccidental? accidental}) {
+    return MidiNote(
+      index: index ?? this.index,
+      octave: octave ?? this.octave,
+      accidental: accidental ?? this.accidental,
+    );
+  }
+
   /// Adds a [MusicalInterval] to the note.
   MidiNote add(MusicalInterval interval) {
     final addDegreeToNoteIndex = index + interval.degree - 1;
@@ -100,5 +108,20 @@ class MidiNote {
   @override
   String toString() {
     return 'MidiNote(index: $index, octave: $octave, accidental: $accidental)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is MidiNote &&
+        other.index == index &&
+        other.octave == octave &&
+        other.accidental == accidental;
+  }
+
+  @override
+  int get hashCode {
+    return index.hashCode ^ octave.hashCode ^ accidental.hashCode;
   }
 }

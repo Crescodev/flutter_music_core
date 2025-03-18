@@ -9,6 +9,24 @@ enum Clef {
   final String symbol;
   final double offsetYMultiplier;
   final MidiNote firstSpaceMidiNote;
-
   const Clef(this.symbol, this.offsetYMultiplier, this.firstSpaceMidiNote);
+
+  static T when<T>(
+    Clef clef, {
+    required T Function() treble,
+    required T Function() bass,
+    required T Function() alto,
+    required T Function() tenor,
+  }) {
+    switch (clef) {
+      case Clef.treble:
+        return treble();
+      case Clef.bass:
+        return bass();
+      case Clef.alto:
+        return alto();
+      case Clef.tenor:
+        return tenor();
+    }
+  }
 }
