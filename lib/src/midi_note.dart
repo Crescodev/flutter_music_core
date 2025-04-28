@@ -90,9 +90,9 @@ class MidiNote {
 
   /// Subtracts a [MusicalInterval] from the note.
   MidiNote subtract(MusicalInterval interval) {
-    final addDegreeToNoteIndex = index + -interval.degree + 1;
+    final addDegreeToNoteIndex = index - interval.degree + 1;
     final newNoteIndex = addDegreeToNoteIndex % 7;
-    final octaveAdjustment = (addDegreeToNoteIndex ~/ 7);
+    final octaveAdjustment = (addDegreeToNoteIndex / 7).floor();
     final newOctave = octave + octaveAdjustment;
     final newNoteMidiNumber = midiNumber - interval.semitones;
 
@@ -103,6 +103,21 @@ class MidiNote {
     );
 
     return MidiNote(index: newNoteIndex, octave: newOctave, accidental: newNoteAccidental);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'index': index, 'octave': octave, 'accidental': accidental?.name};
+  }
+
+  factory MidiNote.fromJson(Map<String, dynamic> json) {
+    return MidiNote(
+      index: json['index'],
+      octave: json['octave'],
+      accidental:
+          json['accidental'] != null
+              ? MusicalAccidental.values.firstWhere((e) => e.name == json['accidental'])
+              : null,
+    );
   }
 
   @override
