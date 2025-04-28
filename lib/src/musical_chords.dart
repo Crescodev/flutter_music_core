@@ -1,6 +1,6 @@
 import 'package:flutter_music_core/flutter_music_core.dart';
 
-enum ChordTypes {
+enum MusicalChord {
   major([MusicalInterval.majorThird, MusicalInterval.minorThird]),
   minor([MusicalInterval.minorThird, MusicalInterval.majorThird]),
   diminished([MusicalInterval.minorThird, MusicalInterval.minorThird]),
@@ -19,5 +19,5 @@ enum ChordTypes {
 
   final List<MusicalInterval> intervals;
 
-  const ChordTypes(this.intervals);
+  const MusicalChord(this.intervals);
 }
